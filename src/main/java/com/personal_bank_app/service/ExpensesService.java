@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ExpensesService {
     Expenses addExpenses(Expenses expenses, String userId);
-    List<Expenses> getAllExpenses();
+    List<Expenses> getAllExpenses(String id);
     Expenses getExpensesById(String expensesId);
     void deleteExpenses(String expensesId);
     Expenses updateExpenses(Expenses expenses);

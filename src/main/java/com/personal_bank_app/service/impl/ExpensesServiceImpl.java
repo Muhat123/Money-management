@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,8 +36,9 @@ public class ExpensesServiceImpl implements ExpensesService {
     }
 
     @Transactional
-    public List<Expenses> getAllExpenses(){
-        return expensesRepository.findAll();
+    public List<Expenses> getAllExpenses(String id){
+        Optional<User> user = userRepository.findById(id);
+        return expensesRepository.findAllByUserId(user.get().getId());
     }
 
     @Transactional
@@ -54,7 +56,6 @@ public class ExpensesServiceImpl implements ExpensesService {
     public Expenses updateExpenses(Expenses expenses){
         Expenses expenses1 = expensesRepository.findById(expenses.getId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-        expenses1.setAmount(expenses.getAmount());
         expenses1.setDescription(expenses.getDescription());
         expenses1.setDate(expenses.getDate());
         return expensesRepository.saveAndFlush(expenses1);

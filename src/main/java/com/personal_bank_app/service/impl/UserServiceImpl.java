@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private final ExpensesRepository expensesRepository;
 
     public User createUser(User user) {
-        List<Expenses> expenses = expensesRepository.findAll();
+        List<Expenses> expenses = expensesRepository.findAllByUserId(user.getId());
         User user1 = new User();
         user1.setName(user.getName());
         user1.setAccountBalance(user.getAccountBalance());
